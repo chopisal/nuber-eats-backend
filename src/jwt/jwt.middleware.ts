@@ -13,6 +13,7 @@ export class JwtMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
     if ('x-jwt' in req.headers) {
       const token = req.headers['x-jwt'];
+
       try {
         const decoded = this.jwtService.verify(token.toString());
 
@@ -22,7 +23,6 @@ export class JwtMiddleware implements NestMiddleware {
           if (ok) {
             req['user'] = user;
           }
-          // console.log('user req==>', req);
         }
       } catch (error) {}
     }
